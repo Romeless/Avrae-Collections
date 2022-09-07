@@ -1,0 +1,1 @@
+`ammosmith detail [ammo]`. This command gives the detail of a specific ammo type.

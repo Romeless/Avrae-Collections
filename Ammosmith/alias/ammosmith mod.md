@@ -1,0 +1,1 @@
+`ammosmith mod [ammo] +/-[ count]`. This command adds or substract the ammo count by the given number.

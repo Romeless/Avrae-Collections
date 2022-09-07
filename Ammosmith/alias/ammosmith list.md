@@ -1,0 +1,1 @@
+`ammosmith list`. This command gives the list of all craftable ammo, their costs, and how much you get from one crafting session.

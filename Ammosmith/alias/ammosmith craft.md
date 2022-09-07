@@ -1,0 +1,1 @@
+`ammosmith craft [ammo] [count]`. This command lets you craft custom ammo. Count defaults on 1.

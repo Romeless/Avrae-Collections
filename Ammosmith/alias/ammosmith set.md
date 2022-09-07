@@ -1,0 +1,1 @@
+`ammosmith set [ammo] [count]`. This command sets the ammo count to the given number.

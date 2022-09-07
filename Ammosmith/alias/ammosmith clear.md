@@ -1,0 +1,1 @@
+`ammosmith clear`. This command resets all ammo count to 0.
