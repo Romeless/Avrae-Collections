@@ -1,0 +1,53 @@
+a import 
+name: Net Shot
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: attack
+        hit:
+          - type: save
+            stat: dex
+            fail:
+              - type: ieffect2
+                name: Restrained (Net)
+                effects:
+                  attack_advantage: "-1"
+                  save_dis:
+                    - dex
+                desc: >-
+                  A restrained creature's speed becomes 0, and it can't benefit from any
+                  bonus to its speed.
+
+                  - Attack rolls against the creature have advantage
+
+                  - Dealing 5 slashing damage to the net (AC 10) also frees the creature without harming it.
+                buttons:
+                  - label: Free Self
+                    automation:
+                      - type: target
+                        target: self
+                        effects:
+                          - type: save
+                            stat: str
+                            fail: []
+                            success:
+                              - type: ieffect2
+                                name: ""
+                    verb: tries to free itself
+                    style: "1"
+                    defaultDC: lastSaveDC
+            success: []
+            dc: 8+caster.stats.get_mod("dex")+caster.stats.prof_bonus
+        miss: []
+        attackBonus: caster.stats.get_mod("dex")+caster.stats.prof_bonus
+  - type: text
+    text: This modification causes the ammunition to open a net when fired. A Large
+      or smaller creature hit by this ammunition must make a Strength saving
+      throw or become restrained until it is freed. This effect has no effect on
+      creatures that are formless, or creatures that are Huge or larger. A
+      creature can use its action to retry the saving throw, freeing itself or
+      another creature within its reach on a success. Dealing 5 slashing damage
+      to the net (AC 10) also frees the creature without harming it, ending the
+      effect and destroying the net.
+_v: 2

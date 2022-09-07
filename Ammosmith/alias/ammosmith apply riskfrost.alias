@@ -1,0 +1,26 @@
+a import
+name: Riskfrost Effect
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: save
+        stat: con
+        fail:
+          - type: ieffect2
+            name: Slowed
+            duration: "1"
+            end: true
+            desc: Slowed creatures move at half speed. Creatures that resist or immune to
+              cold are unaffected.
+        success: []
+        dc: 8+caster.stats.get_mod("dex")+caster.stats.prof_bonus
+  - type: text
+    text: Any weapon attack with this ammunition deals bonus 3d6 cold damage, and if
+      the target is a creature, it must make a Constitution saving throw or have
+      its movement speed halved until the end of its next turn. This effect
+      doesn't apply to creatures resistant or immune to cold damage.
+_v: 2
+proper: true
+verb: applies
+activation_type: 2

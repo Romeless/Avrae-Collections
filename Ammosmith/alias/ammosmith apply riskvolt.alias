@@ -1,0 +1,27 @@
+a import
+name: Riskvolt Effect
+automation:
+  - type: roll
+    dice: 3d6[lightning]
+    name: damage
+  - type: target
+    target: all
+    effects:
+      - type: save
+        stat: dex
+        fail:
+          - type: damage
+            damage: "{damage}"
+        success:
+          - type: damage
+            damage: ({damage}/2)
+        dc: 8+caster.stats.get_mod("dex")+caster.stats.prof_bonus
+  - type: text
+    text: Any weapon attack with this ammunition deals bonus 3d6 lightning damage,
+      and any creature within 5 feet of the point of contact must make a
+      Dexterity saving throw, taking 3d6 lightning damage on a failed save, or
+      half as much damage on a successful save.
+_v: 2
+proper: true
+verb: applies
+activation_type: 2

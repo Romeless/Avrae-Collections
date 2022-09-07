@@ -1,0 +1,20 @@
+a import
+name: Makeshift Shoot
+automation:
+  - type: target
+    target: each
+    effects:
+      - type: attack
+        hit:
+          - type: damage
+            damage: 1d4[piercing]
+        miss: []
+        adv: "-1"
+        attackBonus: caster.stats.get_mod("dex")+caster.stats.prof_bonus
+  - type: text
+    text: These ammunitions are made out of stick and anything pointy that might be
+      attached to its front end. These ammunitions deal 1d4 piercing damage and
+      have disadvantage on the attack roll.
+_v: 2
+proper: false
+phrase: This ammo is not very good...

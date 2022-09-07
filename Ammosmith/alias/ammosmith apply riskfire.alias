@@ -1,0 +1,45 @@
+a import 
+_v: 2
+name: Riskfire Effect
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: save
+        stat: dex
+        fail:
+          - type: ieffect2
+            name: On Fire
+            desc: >-
+              Target takes 1d6 fire damage at the start of their turn, stackable.
+              Creatures that resist or immune to fire are unaffected.
+               - Can spend an action to douse the flames
+            buttons:
+              - label: On Fire
+                verb: is burned by the fire
+                style: "4"
+                automation:
+                  - type: target
+                    target: self
+                    effects:
+                      - type: damage
+                        damage: 1d6 [fire]
+              - label: Douse Flame
+                verb: spends their action putting out the fire
+                style: "3"
+                automation:
+                  - type: remove_ieffect
+            stacking: true
+        success: []
+        dc: 8+caster.stats.get_mod("dex")+caster.stats.prof_bonus
+  - type: text
+    text: Any weapon attack with this ammunition deals bonus 3d6 fire damage, and if
+      the target is a creature, it must make a Dexterity saving throw or they
+      catch fire. If the target is a flammable object, it ignites without saving
+      throw. Until a creature takes an action to douse the fire, the target
+      takes 1d6 fire damage at the start of each of its turns. This effect is
+      stackable, and doesn't apply to creatures resistant or immune to fire
+      damage.
+verb: applies
+proper: true
+activation_type: 2

@@ -1,0 +1,14 @@
+embed -t "Mod Ammo Count" {{ch, cv=character(), "customAmmoCount"}} {{cl=get_gvar("e11a2ca4-688f-4d4f-9c5a-2c46db461a39")}} {{co=ch.get_cvar(cv)}} {{jscl, jsco=load_json(cl), load_json(co)}}
+<drac2>
+using (std = "3bdcceca-8a26-418c-bc00-46d882a9c4b7")
+field, a = [], &ARGS&
+searched = std.pickFrom(a[0], jscl, no_modify=True, multi=False, ignore_case=True, no_sort=True) if len(a) > 1 else False
+if searched:
+	jsco["customAmmoCount"][searched] = jsco["customAmmoCount"][searched] + int(a[1])
+	ch.set_cvar(cv, dump_json(jsco))
+	field.append(f'-f "Set {searched} Ammo Count|The ammo count is modified by {a[1]}"')
+else:
+	field.append(f'-f "Parameter Incorrect|Check if you give the ammo name or new ammo count"')
+</drac2>
+-desc "This command add or substract the custom ammo count."
+{{" ".join(field)}} -thumb <image> -color <color> -footer "Ammosmith by Romeless | ammosmith mod [ammo] [count]"

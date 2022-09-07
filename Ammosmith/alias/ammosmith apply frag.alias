@@ -1,0 +1,26 @@
+a import
+name: Frag Ammo Effect
+automation:
+  - type: roll
+    dice: 5d6[piercing]
+    name: damage
+  - type: target
+    target: all
+    effects:
+      - type: save
+        stat: dex
+        fail:
+          - type: damage
+            damage: "{damage}"
+        success:
+          - type: damage
+            damage: ({damage}/2)
+        dc: 8+caster.stats.get_mod("dex")+caster.stats.prof_bonus
+  - type: text
+    text: Each creature within 5 feet of the exploding ammunition must make a
+      Dexterity saving throw, taking 5d6 piercing damage on a failed save, or
+      half as much damage on a successful one.
+_v: 2
+proper: true
+verb: applies
+activation_type: 2

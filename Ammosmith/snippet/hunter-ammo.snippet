@@ -1,0 +1,14 @@
+{{ammo, ch, cv, cg = "Hunter", character(), "customAmmoCount", get_gvar("d9b3df97-d472-4cda-a75f-633639d3998a")}} {{co=ch.get_cvar(cv)}} {{jsco, jscg=load_json(co), load_json(cg)}}
+<drac2>
+field = []
+ammo_available = int(jsco["customAmmoCount"][ammo])
+if ammo_available:
+	ammo_detail = jscg["customAmmoDetail"][ammo]
+	jsco["customAmmoCount"][ammo] = int(jsco["customAmmoCount"][ammo]) - 1
+	ch.set_cvar(cv, dump_json(jsco))
+	field.append(ammo_detail.effect)
+	field.append(f'-f "{ammo} Ammo |Remaining: {jsco["customAmmoCount"][ammo]} ({ammo_available} - 1)\n{ammo_detail.detail}"')
+else:
+	field.append(f'-f "No {ammo} Ammo|You do not have enough {ammo} Ammo!"')
+</drac2>
+{{" ".join(field)}}

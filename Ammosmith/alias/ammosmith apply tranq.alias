@@ -1,0 +1,54 @@
+a import
+name: Tranq Effect
+automation:
+  - type: target
+    target: all
+    effects:
+      - type: save
+        stat: con
+        fail:
+          - type: ieffect2
+            name: Poisoned
+            duration: "11"
+            effects:
+              attack_advantage: "-1"
+              check_dis:
+                - all
+          - type: condition
+            condition: lastSaveRollTotal <= (lastSaveDC-10)
+            onTrue:
+              - type: ieffect2
+                name: Unconscious
+                duration: "11"
+                desc: >-
+                  An unconscious creature is incapacitated, can't move or speak, and is
+                  unaware of its surroundings.
+
+                  - The creature drops whatever it's holding and falls prone.
+
+                  - The creature automatically fails Strength and Dexterity saving throws.
+
+                  - Attack rolls against the creature have advantage.
+
+                  - Any attack that hits the creature is a critical hit if the attacker is within 5 feet of the creature.
+                parent: poisoned
+                buttons:
+                  - label: Wake Up
+                    automation:
+                      - type: remove_ieffect
+                    verb: wakes up
+                    style: "1"
+            onFalse: []
+            errorBehaviour: "false"
+        success: []
+        dc: 8+caster.stats.get_mod("dex")+caster.stats.prof_bonus
+  - type: text
+    text: When making an attack using this ammunition, the target must make a
+      Constitution saving throw or become poisoned for 1 minute. If its saving
+      throw result is 10 or lower, the poisoned target falls unconscious for the
+      same duration, or until it takes damage or another creature takes an
+      action to shake it awake.
+_v: 2
+proper: true
+verb: applies
+activation_type: 2

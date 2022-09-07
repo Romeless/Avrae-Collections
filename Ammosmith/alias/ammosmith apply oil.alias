@@ -1,0 +1,33 @@
+a import
+name: Oil Shot
+automation:
+  - type: target
+    target: each
+    effects:
+      - type: ieffect2
+        name: Covered in Oil
+        duration: "11"
+        buttons:
+          - label: Burn
+            automation:
+              - type: target
+                target: self
+                effects:
+                  - type: damage
+                    damage: 5[fire]
+                  - type: remove_ieffect
+            verb: is burned with oil fire
+            style: "1"
+        desc: If a creature covered in oil takes any fire damage before the oil dries
+          (after 1 minute), the target takes an additional 5 fire damage from
+          the burning oil.
+  - type: text
+    text: This modification causes the ammunition to splatter a flammable oil within
+      a 5-foot-square area on contact instead of dealing damage. If a creature
+      covered in oil takes any fire damage before the oil dries (after 1
+      minute), the target takes an additional 5 fire damage from the burning
+      oil. If the oil in the area is lit, the oil burns for 2 rounds and deals 5
+      fire damage to any creature that enters the area or ends its turn in the
+      area. A creature can take this damage only once per turn.
+_v: 2
+proper: false

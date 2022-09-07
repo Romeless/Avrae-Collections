@@ -1,0 +1,15 @@
+embed -title "Ammo Detail" {{cg, cl =get_gvar("d9b3df97-d472-4cda-a75f-633639d3998a"), get_gvar("e11a2ca4-688f-4d4f-9c5a-2c46db461a39")}} {{jscg, jscl=load_json(cg), load_json(cl)}}
+<drac2>
+using (std = "3bdcceca-8a26-418c-bc00-46d882a9c4b7" )
+a = &ARGS&
+field=[]
+searched = std.pickFrom(a[0], jscl, no_modify=True, multi=False, ignore_case=True, no_sort=True) if len(a) > 0 else False
+if searched:
+	ammo_detail = jscg["customAmmoDetail"][searched]
+	field.append(f'-f "Save DC|Some ammo forces the target to make a saving throw.\nCustom Ammo Save DC: **{8+proficiencyBonus+dexterityMod}**"')
+	field.append(f'-f "{searched} Ammo|{ammo_detail.cost} {ammo_detail.currency} for {ammo_detail.count} piece(s).\n\n{ammo_detail.detail}"')
+else:
+	field.append(f'-f "No Ammo To Search!|You did not give a proper ammo parameter! (*{a[0] if len(a) > 0 else "n/a"}*)\n`ammosmith detail [ammo]`"')
+</drac2>
+-desc "This command gives the detail of a specific ammo type. Crafting a custom ammo takes 1 minutes." 
+{{" ".join(field)}} -thumb <image> -color <color> -footer "Ammosmith by Romeless | ammosmith detail"

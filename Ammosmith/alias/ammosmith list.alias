@@ -1,0 +1,10 @@
+embed -title "List of Custom Ammosmith Ammo" {{ch,cg=character(),get_gvar("d9b3df97-d472-4cda-a75f-633639d3998a")}} {{jscg=load_json(cg)}}
+<drac2>
+field=[]
+fc = "\n".join(f"*{n} Ammo*: {c.cost} {c.currency} for {c.count} piece(s)." for (n, c) in jscg["customAmmoDetail"].items() if c != 0)
+field.append(f'-f "Craftable Custom Ammo|{fc}"')
+cp = ch.coinpurse.compact_str()
+field.append(f'-f "Your Currency|{cp}"')
+</drac2>
+-desc "This command gives a list of craftable ammo. Crafting a custom ammo takes 1 minutes." 
+{{" ".join(field)}} -thumb <image> -color <color> -footer "Ammosmith by Romeless | ammosmith list"

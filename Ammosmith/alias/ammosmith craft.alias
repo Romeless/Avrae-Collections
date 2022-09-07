@@ -1,0 +1,26 @@
+embed -t "Crafting Custom Arrows" {{ch, cv=character(), "customAmmoCount"}} {{cg,cl,ct=get_gvar("d9b3df97-d472-4cda-a75f-633639d3998a"), get_gvar("e11a2ca4-688f-4d4f-9c5a-2c46db461a39"), get_gvar("5d93f966-634e-4f31-9174-4bb615126753")}} {{ch.set_cvar_nx(cv,ct)}} {{co=ch.get_cvar(cv)}} {{jscg, jscl, jsco=load_json(cg), load_json(cl), load_json(co)}}
+<drac2>
+using (std = "3bdcceca-8a26-418c-bc00-46d882a9c4b7" )
+field, a = [], &ARGS&
+searched = std.pickFrom(a[0], jscl, no_modify=True, multi=False, ignore_case=True, no_sort=True) if len(a) > 0 else False
+if searched:
+	craft_count = int(a[1]) if len(a) > 1 else 1
+	ammo_detail = jscg["customAmmoDetail"][searched]
+	cost, currency, count = ammo_detail.cost, ammo_detail.currency, ammo_detail.count
+	total_price =  int(cost) * craft_count
+	if ch.coinpurse.total >= total_price:
+		jsco["customAmmoCount"][searched] = int(jsco["customAmmoCount"][searched]) + (craft_count * int(count))
+		ch.set_cvar(cv, dump_json(jsco))
+		ch.coinpurse.modify_coins(gp=-total_price)
+		field.append(f'-f "Crafted|You crafted {craft_count * int(count)} ({craft_count} x {int(count)}) {searched} Ammo! (-{total_price} {currency})"')
+	else:
+		field.append(f'-f "Not enough money!| You do not have enough money! ({total_price} {currency})\n`ammosmith craft [ammo] [count]`"')
+else:
+	field.append(f'-f "Wrong Parameters!| You did not specify ammo type and/or ammo count!\n`ammosmith craft [ammo] [count]`"')
+fc = "\n".join(f"*{n} Ammo*: {c}" for (n, c) in jsco["customAmmoCount"].items() if c != 0)
+field.append(f'-f "Custom Ammo|{fc}"')
+cp = ch.coinpurse.compact_str()
+field.append(f'-f "Your Currency|{cp}"')
+</drac2>
+-desc "This command lets you craft custom ammo. Crafting a custom ammo takes 1 minutes."
+{{" ".join(field)}} -thumb <image> -color <color> -footer "Ammosmith by Romeless | ammosmith craft [ammo] [count]"
